@@ -1,0 +1,6 @@
+wp-config.php
+access_log
+error_log
+wp-content/uploads/*
+!.keep
+configCache.php
