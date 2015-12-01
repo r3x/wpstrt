@@ -23,6 +23,7 @@ $themebasename = "devdmbootstrap3";
 $startfiles = [];
 $startfiles[".htaccess"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/htaccess";
 $startfiles[".gitignore"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/gitignore";
+$startfiles["languagebounce.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/languagebounce.php";
 $startfiles["wp-config.local.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.local.php";
 $startfiles["wp-config.staging.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.staging.php";
 $startfiles["wp-config.production.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.production.php";
@@ -145,7 +146,7 @@ if( ! file_exists( $wget ) ) {
     echo "\n\n";
 
     echo "\n\n";
-    echo "Themen\n\n";
+    echo "Theme\n\n";
     file_put_contents( $dir . "/wp-content/themes/theme.zip" , file_get_contents( $themezip ) );
     chdir( $themedir );
     echo exec( $unzip . " -o theme.zip" );
