@@ -1,0 +1,203 @@
+#!/usr/local/opt/php56/bin/php
+<?php
+
+$sudo = "/usr/bin/sudo";
+$pcode = trim( $argv[1] );
+$user = get_current_user();
+$wp = "/usr/local/bin/wp";
+$mysql = "/usr/local/bin/mysql";
+$virtual = "/usr/local/bin/virtualhost.sh";
+$brew = "/usr/local/bin/brew";
+$unzip = "/usr/bin/unzip";
+$rm = "/bin/rm";
+$mv = "/bin/mv";
+$chmod = "/bin/chmod";
+$wget = "/usr/local/bin/wget";
+$cp = "/bin/cp";
+
+$dir = "/Users/".$user."/Sites/$pcode";
+$themedir = $dir ."/wp-content/themes";
+$themezip = "https://downloads.wordpress.org/theme/devdmbootstrap3.1.71.zip";
+$themebasename = "devdmbootstrap3";
+
+$startfiles = [];
+$startfiles[".htaccess"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/htaccess";
+$startfiles[".gitignore"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/gitignore";
+$startfiles["wp-config.local.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.local.php";
+$startfiles["wp-config.staging.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.staging.php";
+$startfiles["wp-config.production.php"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/wp-config.production.php";
+
+
+$postfiles = [];
+$postfiles['wp-content/themes/'.$pcode."/style.css"] = "https://raw.githubusercontent.com/brownrl/wpstrt/master/style.css";;
+
+
+
+
+$plugins = [];
+$plugins['pagebuilder'] = "https://downloads.wordpress.org/plugin/siteorigin-panels.2.2.1.zip";
+$plugins['gravity'] = "https://github.com/gravityforms/gravityforms/archive/master.zip";
+$plugins['gravitypost'] = "https://github.com/chrisgoddard/Gravity-HTTP-POST-Plugin/archive/master.zip";
+$plugins['wpml'] = "https://wpml.org/?download=6088&user_id=116060&subscription_key=e27576cd0d62232a49f377e999fc8c55";
+$plugins['wpmlstring'] = "https://wpml.org/?download=6092&user_id=116060&subscription_key=e27576cd0d62232a49f377e999fc8c55";
+$plugins['types'] = "https://downloads.wordpress.org/plugin/types.1.8.10.zip";
+
+
+
+
+
+
+
+if( ! preg_match( "/^[a-z]{6}$/" , $pcode ) ) {
+
+	echo "You need to have 6 charecter argument passed ex, colweb\n";
+    exit( 1 );
+
+}
+
+if( ! file_exists( $brew ) ) {
+
+	echo "Jesus! do you even have the homebrew installed? (google homebrew!)\n";
+	exit( 1 );
+
+}
+
+
+if( ! is_dir( $dir ) ) {
+
+	echo "have you made this project in Beanstalk and cloned it to your local?\n";
+	exit( 1 );
+
+}
+
+
+if( ! file_exists( $wp ) ) {
+
+	echo "Jesus! do you even have the wp-cli installed? (brew install wp-cli)\n";
+	exit( 1 );
+
+}
+
+if( ! file_exists( $virtual ) ) {
+
+	echo "Jesus! do you even have the virtualhost.sh installed? (brew install virtualhost.sh)\n";
+	exit( 1 );
+
+}
+
+if( ! file_exists( $mysql ) ) {
+
+	echo "Jesus! do you even have the MYSQL installed? (brew install mysql)\n";
+	exit( 1 );
+
+}
+$mysql .= " -uroot -e";
+
+if( ! file_exists( $wget ) ) {
+
+	echo "Jesus! do you even have the WGET installed? (brew install wget)\n";
+	exit( 1 );
+
+}
+
+    // OK we get this far
+
+	echo "\n\n";
+	echo "Starting servers if they are not already started\n";
+	echo exec( "/usr/bin/sudo /usr/sbin/apachectl start" );
+	echo exec( "/usr/local/bin/mysql.server start" );
+	echo "\n\n";
+
+	echo exec( $sudo . " " . $chmod . " -R 777 " . $dir );
+
+	// FIRST MYSQL DB
+	echo "\n\n";
+    echo "Creating Databases $pcode with user $pcode and password $pcode for 127.0.0.1\n\n";
+    $q1="CREATE DATABASE IF NOT EXISTS ".$pcode.";";
+    $q2="GRANT USAGE ON *.* TO $pcode@127.0.0.1 IDENTIFIED BY '$pcode';";
+    $q3="GRANT ALL PRIVILEGES ON ".$pcode.".* TO $pcode@127.0.0.1;";
+    $q4="FLUSH PRIVILEGES;";
+    $sql='"'.$q1.$q2.$q3.$q4.'"';
+    echo exec($mysql.$sql);
+    echo "\n\n";
+
+
+    echo "\n\n";
+    chdir( $dir );
+    echo "Downloading Wordpress\n\n";
+    echo exec($wp . " core download" );
+    echo "\n\n";
+
+
+    echo "\n\n";
+    echo "Config Files\n\n";
+    foreach( $startfiles as $file => $url ) {
+    	file_put_contents( $file, preg_replace( "/XXXXXX/" , $pcode , file_get_contents( $url ) ) );
+    }
+    copy( "wp-config.local.php" , "wp-config.php" );
+    echo "\n\n";
+
+
+
+    echo "\n\n";
+    echo "Install\n\n";
+    echo exec( $wp . " core install --url=http://".$pcode." --title=".$pcode." --admin_user=".$pcode." --admin_password=".$pcode." --admin_email=".$pcode."@".$pcode.".com" );
+    echo "\n\n";
+
+    echo "\n\n";
+    echo "Themen\n\n";
+    file_put_contents( $dir . "/wp-content/themes/theme.zip" , file_get_contents( $themezip ) );
+    chdir( $themedir );
+    echo exec( $unzip . " -o theme.zip" );
+    echo exec( $rm . " theme.zip" );
+    echo "\n\n";
+
+
+    chdir( $dir );
+    echo "\n\n";
+    echo "Post Files\n\n";
+
+    foreach( $postfiles as $file => $url ) {
+    	if( ! is_dir( dirname( $file ) ) ) {
+    		mkdir( dirname( $file ) , 0777 , true );
+    	}
+    	file_put_contents( $file, preg_replace( "/XXXXXX/" , $pcode , file_get_contents( $url ) ) );
+    }
+    echo "\n\n";
+
+    echo "\n\n";
+    echo "Set the theme\n\n";
+    echo exec( $wp . " theme activate ".$pcode );
+    echo exec( $cp . " " . $themedir . "/" . $themebasename . "/screenshot.png " . $themedir . "/" . $pcode . "/" );
+    echo exec( $wp . " theme delete twentyfifteen" );
+    echo exec( $wp . " theme delete twentyfourteen" );
+    echo exec( $wp . " theme delete twentythirteen" );
+    echo "\n\n";
+
+
+
+
+
+    echo "\n\n";
+    echo "Virtualhost.sh\n\n";
+    echo exec( $virtual . " " . $pcode );
+    echo "\n\n";
+
+
+    echo "\n\n";
+    echo "Permissions\n\n";
+    echo exec( $sudo . " " . $chmod . " -R 777 " . $dir );
+    echo "\n\n";
+
+
+    // echo "\n\n";
+    // echo "Plugins\n\n";
+    // foreach( $plugins as $plugin => $url ) {
+    // 	echo exec( $wp . " plugin install " . $url );
+    // }
+    // echo exec( $sudo . " " . $chmod . " -R 777 " . $dir );
+    // echo "\n\n";
+
+
+
+
