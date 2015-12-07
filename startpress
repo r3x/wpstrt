@@ -36,13 +36,19 @@ $postfiles['wp-content/themes/'.$pcode."/style.css"] = "https://raw.githubuserco
 
 
 $plugins = [];
-$plugins['pagebuilder'] = "https://downloads.wordpress.org/plugin/siteorigin-panels.2.2.1.zip";
-$plugins['gravity'] = "https://github.com/gravityforms/gravityforms/archive/master.zip";
-$plugins['gravitypost'] = "https://github.com/chrisgoddard/Gravity-HTTP-POST-Plugin/archive/master.zip";
-$plugins['wpml'] = "https://wpml.org/?download=6088&user_id=116060&subscription_key=e27576cd0d62232a49f377e999fc8c55";
-$plugins['wpmlstring'] = "https://wpml.org/?download=6092&user_id=116060&subscription_key=e27576cd0d62232a49f377e999fc8c55";
-$plugins['types'] = "https://downloads.wordpress.org/plugin/types.1.8.10.zip";
-
+$plugins['pagebuilder'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/14952d940a53c77efa4a079c7087c48a/siteorigin-panels.2.2.1.zip";
+$plugins['gravity'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/cb16899e383b58c2ccd18b64d8e53794/gravityforms.zip";
+$plugins['gravitypost'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/d0debb7c78f397bd2a9fd21985a71334/Gravity-HTTP-POST-Plugin.zip";
+$plugins['wpml'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/562385b858ab788a5e99ace80f964c14/sitepress-multilingual-cms.zip";
+$plugins['wpmlstring'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/2f4ce9aa50dec029a0d274e5ce88dc36/wpml-string-translation.zip";
+$plugins['wp-migrate'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/08ae4d2472c781b6b4ce923f96032d43/wp-migrate-db-pro.zip";
+$plugins['wp-migrate-media'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/e1d17dca9af8e06727cae6b4c194c75f/wp-migrate-db-pro-media-files.zip";
+$plugins['filemanager'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/bf563c1380cecbca06698287bff548ee/wp-filemanager.zip";
+$plugins['fields'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/4ce8446a2a009754dcc670c6183b1db7/advanced-custom-fields.zip";
+$plugins['tinymce'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/b3b6a34f064f0f7d1978ee7ff2a18aa3/tinymce-advanced.zip";
+$plugins['types'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/ba75f6b91e5e0756a104cf5d11afca7f/types.zip";
+$plugins['treeeview'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/40f04d5815240df8032d275ce6a4b18b/cms-tree-page-view.1.2.34.zip";
+$plugins['imagesizes'] = "https://trello-attachments.s3.amazonaws.com/55b6326a7df81eac91936471/565db26fa2a9dcb12f250176/e1c7b35e1d3909cd6a415e6d1d8833fd/simple-image-sizes.3.0.9.zip";
 
 
 
@@ -191,13 +197,13 @@ if( ! file_exists( $wget ) ) {
     echo "\n\n";
 
 
-    // echo "\n\n";
-    // echo "Plugins\n\n";
-    // foreach( $plugins as $plugin => $url ) {
-    // 	echo exec( $wp . " plugin install " . $url );
-    // }
-    // echo exec( $sudo . " " . $chmod . " -R 777 " . $dir );
-    // echo "\n\n";
+    echo "\n\n";
+    echo "Plugins\n\n";
+    foreach( $plugins as $plugin => $url ) {
+    	echo exec( $wp . " plugin install " . $url );
+    }
+    echo exec( $sudo . " " . $chmod . " -R 777 " . $dir );
+    echo "\n\n";
 
 
 
