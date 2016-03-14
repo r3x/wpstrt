@@ -22,7 +22,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 2rem;
-  font-weight: 700; 
+  font-weight: 700;
 }
 
 h1 { font-size: 5.0rem; line-height: 1.2;  letter-spacing: -.1rem;}
@@ -45,7 +45,7 @@ h6 { font-size: 1.5rem; line-height: 1.6;  letter-spacing: 0; }
 p { margin-top: 0; }
 
 * {
-  @include selection($c__font--base, $c__font--alter)
+  //@include selection( $c__font--base, $c__font--alter );
 }
 
 // Bold and Italics
@@ -88,7 +88,7 @@ sub { bottom: -0.25em; }
 
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-a { 
+a {
 	color: $c__font--achor;
 	text-decoration: none;
 	@include transition( all .3s ease );
@@ -101,55 +101,55 @@ a {
 
 /* Lists
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-ul { 
-	list-style: none; 
+ul {
+	list-style: none;
 }
 
-ol { 
-	list-style: decimal inside; 
+ol {
+	list-style: decimal inside;
 }
 
-ol, 
-ul { 
-	padding-left: 0; 
-	margin-top: 0; 
+ol,
+ul {
+	padding-left: 0;
+	margin-top: 0;
 }
 
-ul ul, 
-ul ol, 
-ol ol, 
-ol ul { 
-	margin: 1.5rem 0 1.5rem 3rem; 
-	font-size: 90%; 
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+	margin: 1.5rem 0 1.5rem 3rem;
+	font-size: 90%;
 }
 
-li {  
-	margin-bottom: 1rem; 
+li {
+	margin-bottom: 1rem;
 }
 
 
 /* Spacing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 button, .button {
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
 }
-input, 
-textarea, 
-select, 
-fieldset { 
-	margin-bottom: 1.5rem; 
+input,
+textarea,
+select,
+fieldset {
+	margin-bottom: 1.5rem;
 }
 
-pre, 
-blockquote, 
-dl, 
-figure, 
-table, 
-p, 
-ul, 
-ol, 
-form { 
-	margin-bottom: 2.5rem; 
+pre,
+blockquote,
+dl,
+figure,
+table,
+p,
+ul,
+ol,
+form {
+	margin-bottom: 2.5rem;
 }
 
 
@@ -166,7 +166,7 @@ input[type="password"],
 textarea {
   -webkit-appearance: none;
      -moz-appearance: none;
-          appearance: none; 
+          appearance: none;
 }
 
 input[type="email"]:focus,
@@ -178,23 +178,23 @@ input[type="url"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
-  outline: 0; 
+  outline: 0;
 }
 
-label, legend { 
-	display: block; 
-	margin-bottom: .5rem; 
-	font-weight: 600; 
+label, legend {
+	display: block;
+	margin-bottom: .5rem;
+	font-weight: 600;
 }
 
-fieldset { 
-	padding: 0; 
-	border-width: 0; 
+fieldset {
+	padding: 0;
+	border-width: 0;
 }
 
-input[type="checkbox"], 
-input[type="radio"] { 
-	display: inline; 
+input[type="checkbox"],
+input[type="radio"] {
+	display: inline;
 }
 
 
@@ -206,5 +206,5 @@ hr {
   margin-top: 3rem;
   margin-bottom: 3.5rem;
   border-width: 0;
-  border-top: 1px solid #E1E1E1; 
+  border-top: 1px solid #E1E1E1;
 }
